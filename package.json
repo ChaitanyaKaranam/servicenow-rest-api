@@ -1,0 +1,14 @@
+{
+  "name": "servicenow-rest-api",
+  "version": "1.0.0",
+  "description": "Wrapper library for ServiceNow REST API",
+  "main": "servicenow.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chaitanya Karanam",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.0"
+  }
+}

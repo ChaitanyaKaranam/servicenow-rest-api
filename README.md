@@ -3,6 +3,38 @@
 
 Node.JS wrapper library for ServiceNow REST API.
 
+## Table of Contents
+
+- [Installing](#installing)
+- [Basic Usage](#basic-usage)
+    + [Request](#request)
+    + [Response](#response)
+- [Supported REST API calls](#supported-rest-api-calls)
+- [Functions](#functions)
+  * [1. ServiceNow.Authenticate](#1-servicenowauthenticate)
+    + [Request](#request-1)
+    + [Response](#response-1)
+  * [2. ServiceNow.getSampleData](#2-servicenowgetsampledata)
+    + [Request](#request-2)
+    + [Response](#response-2)
+  * [3. ServiceNow.getTableData](#3-servicenowgettabledata)
+    + [Request](#request-3)
+    + [Response](#response-3)
+  * [4. ServiceNow.getSysId](#4-servicenowgetsysid)
+    + [Request](#request-4)
+    + [Response](#response-4)
+  * [5. ServiceNow.createNewTask](#5-servicenowcreatenewtask)
+    + [Request](#request-5)
+    + [Response](#response-5)
+  * [6. ServiceNow.UpdateTask](#6-servicenowupdatetask)
+    + [Request](#request-6)
+    + [Response](#response-6)
+  * [7. ServiceNow.DeleteTask](#7-servicenowdeletetask)
+    + [Request](#request-7)
+    + [Response](#response-7)
+- [License](#license)
+
+
 ## Installing
 
 Run `npm install servicenow-rest-api` to install the package.
@@ -61,7 +93,7 @@ In this package, wrappers are available for below REST interfaces.
 
 ## Functions
 
-### ServiceNow.Authenticate
+### 1. ServiceNow.Authenticate
 
 | Parameters                   |
 |------------------------------|
@@ -103,7 +135,7 @@ For complete response use res.raw
 ```
 ___
 
-### ServiceNow.getSampleData
+### 2. ServiceNow.getSampleData
 
 This function can be used as a reference to get sample data for tables in ServiceNow. This can be used to check the fields in a table.
 
@@ -138,7 +170,7 @@ ServiceNow.getSampleData('change_request',(res)=>{
 ___
 
 
-### ServiceNow.getTableData
+### 3. ServiceNow.getTableData
 
 Access ServiceNow table data using this function.
 
@@ -191,7 +223,7 @@ riority&sysparm_query=urgency=1
 ___
 
 
-### ServiceNow.getSysId
+### 4. ServiceNow.getSysId
 
 Used as a reference to get sys_id of a record in ServiceNow.
 
@@ -218,7 +250,7 @@ ServiceNow.getSysId('incident','INC0000016',res=>{
 ___
 
 
-### ServiceNow.createNewTask
+### 5. ServiceNow.createNewTask
 
 This is used to create a new task in ServiceNow.
 
@@ -266,7 +298,7 @@ ServiceNow.createNewTask(data,'incident',res=>{
 ___
 
 
-### ServiceNow.UpdateTask
+### 6. ServiceNow.UpdateTask
 
 This is used to update existing record in ServiceNow.
 
@@ -323,7 +355,7 @@ ServiceNow.UpdateTask('incident','INC0010006',data,res=>{
 ___
 
 
-### ServiceNow.DeleteTask
+### 7. ServiceNow.DeleteTask
 
 To delete an existing record in ServiceNow table.
 

@@ -32,6 +32,16 @@ Node.JS wrapper library for ServiceNow REST API.
   * [7. ServiceNow.DeleteTask](#7-servicenowdeletetask)
     + [Request](#request-7)
     + [Response](#response-7)
+- [Examples](#examples)
+  * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
+    + [Request](#request-8)
+    + [Response](#response-8)
+  * [2. Create an Emergency change to reboot server](#2-create-an-emergency-change-to-reboot-server)
+    + [Request](#request-9)
+    + [Response](#response-9)
+  * [3. Elevate priority of ticket](#3-elevate-priority-of-ticket)
+    + [Request](#request-10)
+    + [Response](#response-10)
 - [License](#license)
 
 
@@ -377,6 +387,161 @@ ServiceNow.DeleteTask('incident','INC0010006',res=>{
 
 ```
 204
+```
+
+## Examples
+
+### 1. Get critical incidents which are open for last 6 months.
+
+#### Request
+
+```
+const sn = require('servicenow-rest-api');
+const ServiceNow = new sn('devserver','admin','password');
+
+ServiceNow.Authenticate();
+
+const fields =[
+    'number',
+    'short_description',
+    'assignment_group',
+    'assigned_to'
+];
+
+const filters=[
+    'priority=1',
+    'state=In Progress',
+    'opened_atONLast 6 months@javascript:gs.beginningOfLast6Months()@javascript:gs.endOfLast6Months()' //Opened on last 6 months
+];
+
+ServiceNow.getTableData(fields,filters,'incident',res=>{
+    console.log(res);
+});
+```
+
+#### Response
+
+```
+[ { number: 'INC0000003',
+    short_description: 'Wireless access is down in my area',
+    assignment_group:
+     { display_value: 'Network',
+       link: 'https://devserver.service-now.com/api/now/v2/table/sys_user_group/287ebd7da9fe198100f92cc8d1d2154e' },
+    assigned_to:
+     { display_value: 'Beth Anglin',
+       link: 'https://devserver.service-now.com/api/now/v2/table/sys_user/46d44a23a9fe19810012d100cca80666' } },
+  { number: 'INC0000050',
+    short_description: 'Can\'t access Exchange server - is it down?',
+    assignment_group:
+     { display_value: 'Hardware',
+       link: 'https://devserver.service-now.com/api/now/v2/table/sys_user_group/8a5055c9c61122780043563ef53438e3' },
+       .
+       .
+       .       
+```
+___
+
+### 2. Create an Emergency change to reboot server
+
+#### Request
+
+```
+const sn = require('servicenow-rest-api');
+const ServiceNow = new sn('devserver','admin','password');
+
+ServiceNow.Authenticate();
+
+const changeData={
+    'short_description':'Reboot Server',
+    'priority':'1',
+    'risk':'High',
+    'type':'Emergency',
+    'assignment_group':'Hardware'
+};
+     
+
+ServiceNow.createNewTask(changeData,'change_request',res=>{
+    console.log(res);
+});
+```
+
+#### Response
+
+```
+{ parent: '',
+  reason: null,
+  made_sla: 'true',
+  backout_plan: '',
+  watch_list: '',
+  upon_reject: 'Cancel all future Tasks',
+  sys_updated_on: '2017-11-03 07:37:23',
+  type: 'Emergency',
+  conflict_status: 'Not Run',
+  approval_history: '',
+  number: 'CHG0030003',
+  .
+  .
+  .
+  short_description: 'Reboot Server',
+  close_code: null,
+  correlation_display: '',
+  delivery_task: '',
+  work_start: '',
+  assignment_group:
+   { display_value: 'Hardware',
+   .
+   .
+   .
+```
+___
+
+### 3. Elevate priority of ticket
+
+#### Request
+
+```
+const sn = require('servicenow-rest-api');
+const ServiceNow = new sn('devserver','admin','password');
+
+ServiceNow.Authenticate();
+
+const incidentData={
+    'work_notes':'Elevating priority of ticket as per business request',
+    'urgency':'1',
+    'impact':'1'
+};
+     
+ServiceNow.UpdateTask('incident','INC0010007',incidentData,res=>{
+    console.log(res);
+});
+```
+
+#### Response
+
+```
+{ parent: '',
+  made_sla: 'true',
+  caused_by: '',
+  watch_list: '',
+  upon_reject: 'Cancel all future Tasks',
+  sys_updated_on: '2017-11-03 08:25:17',
+  child_incidents: '0',
+  hold_reason: '',
+  approval_history: '',
+  number: 'INC0010007',
+  .
+  .
+  .
+  impact: '1 - High',
+  active: 'true',
+  work_notes_list: '',
+  business_service: '',
+  priority: '1 - Critical',
+  .
+  .
+  .
+   work_notes: '2017-11-03 08:25:17 - System Administrator (Work notes)\nElevating priority of ticket as per business request\n',
+  short_description: 'Cannot connect to internet',
 ```
 
 

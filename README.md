@@ -3,6 +3,8 @@
 
 Node.JS wrapper library for ServiceNow REST API.
 
+[![NPM](https://nodei.co/npm/servicenow-rest-api.png)](https://npmjs.org/package/servicenow-rest-api)
+
 ## Table of Contents
 
 - [Installing](#installing)

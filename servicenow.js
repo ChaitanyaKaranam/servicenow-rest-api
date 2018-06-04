@@ -7,7 +7,7 @@ function ServiceNow(instance,userid,password){
 }
 
 //Authenticate ServiceNow instances
-ServiceNow.prototype.Authenticate=function(callback){
+ServiceNow.prototype.Authenticate=function(){
     const options={
         url:`https://${this.instance}.service-now.com/api/now/v2/table/sys_user?user_name=${this.userid}`,
         method:'get',
@@ -21,9 +21,9 @@ ServiceNow.prototype.Authenticate=function(callback){
             raw:val,
             status:val.status
         }
-        callback(res);
-    }).catch((err)=>{
-        callback(err);
+        console.log('Authenticated');
+    },(rej)=>{
+        console.log(rej);
     });
 }
 
@@ -39,9 +39,31 @@ ServiceNow.prototype.getSampleData=function(type,callback){
         }
     };
     axios(options).then((val)=>{
-        callback(val.data.result);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getSampleData('change_request',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }       
     }).catch((err)=>{
-        callback(err);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getSampleData('change_request',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...'); 
+            console.log(err);
+        }else{
+            callback(err);
+        }        
     });
 }
 
@@ -75,9 +97,32 @@ ServiceNow.prototype.getTableData=function(fields,filters,type,callback){
     };    
     console.log(url);
     axios(options).then((val)=>{
-        callback(val.data.result);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getTableData(fields,filters,'incident',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }
+        
     }).catch((err)=>{
-        callback(err);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getTableData(fields,filters,'incident',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...'); 
+            console.log(err);
+        }else{
+            callback(err);
+        }        
     });
 }
 
@@ -98,9 +143,32 @@ ServiceNow.prototype.createNewTask=function(data,type,callback){
     }
 
     axios(options).then((val)=>{
-        callback(val.data.result);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.createNewTask(data,'incident',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }        
     }).catch((err)=>{
-        callback(err);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.createNewTask(data,'incident',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...'); 
+            console.log(err);
+        }else{
+            callback(err);
+        }
+        
     });    
 
 }
@@ -116,9 +184,31 @@ ServiceNow.prototype.getSysId=function(type,number,callback){
         }
     };
     axios(options).then((val)=>{
-        callback(val.data.result[0].sys_id);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getSysId('incident','INC0000016',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result[0].sys_id);
+        }        
     }).catch((err)=>{
-        callback(err);
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');            
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getSysId('incident','INC0000016',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...'); 
+            console.log(err);
+        }else{
+            callback(err);
+        }        
     });    
 }
 
@@ -139,9 +229,31 @@ ServiceNow.prototype.UpdateTask =function(type,number,data,callback){
             }
         }
         axios(options).then((val)=>{
-            callback(val.data.result);
+            if(callback == undefined){
+                console.log();
+                console.log('Fix below errors');
+                console.log();
+                console.log('(1) ==> Cannot find Callback function...');            
+                console.log('*********** Sample Request **********');
+                console.log(`ServiceNow.UpdateTask('incident','INC0010006',data,(res)=>console.log(res))`);
+                console.log();
+            }else{
+                callback(val.data.result);
+            }            
         }).catch((err)=>{
-            callback(err);
+            if(callback == undefined){
+                console.log();
+                console.log('Fix below errors');
+                console.log();
+                console.log('(1) ==> Cannot find Callback function...');            
+                console.log('*********** Sample Request **********');
+                console.log(`ServiceNow.UpdateTask('incident','INC0010006',data,(res)=>console.log(res))`);
+                console.log();
+                console.log('(2) ==> Bad Request...'); 
+                console.log(err);
+            }else{
+                callback(err);
+            }            
         });
     });    
 }
@@ -166,9 +278,31 @@ ServiceNow.prototype.DeleteTask = function(type,number,callback){
                 raw:val,
                 status:val.status
             }
-            callback(res);
+            if(callback == undefined){
+                console.log();
+                console.log('Fix below errors');
+                console.log();
+                console.log('(1) ==> Cannot find Callback function...');            
+                console.log('*********** Sample Request **********');
+                console.log(`ServiceNow.DeleteTask('incident','INC0010006',(res)=>console.log(res))`);
+                console.log();
+            }else{
+                callback(res);
+            }            
         }).catch((err)=>{
-            callback(err);
+            if(callback == undefined){
+                console.log();
+                console.log('Fix below errors');
+                console.log();
+                console.log('(1) ==> Cannot find Callback function...');            
+                console.log('*********** Sample Request **********');
+                console.log(`ServiceNow.DeleteTask('incident','INC0010006',(res)=>console.log(res))`);
+                console.log();
+                console.log('(2) ==> Bad Request...'); 
+                console.log(err);
+            }else{
+                callback(err);
+            }            
         });
     });
 }

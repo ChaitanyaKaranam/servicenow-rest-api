@@ -1,6 +1,6 @@
 {
   "name": "servicenow-rest-api",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Wrapper library for ServiceNow REST API",
   "main": "servicenow.js",
   "scripts": {
@@ -10,5 +10,13 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.0"
+  },
+  "keywords": [
+    "node",
+    "service-now"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChaitanyaKaranam/servicenow-rest-api"
   }
 }

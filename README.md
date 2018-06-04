@@ -109,7 +109,7 @@ In this package, wrappers are available for below REST interfaces.
 
 | Parameters                   |
 |------------------------------|
-| Callback function (optional) |
+| Callback function            |
 
 #### Request
 

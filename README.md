@@ -1,3 +1,5 @@
+Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaranam/servicenow-rest-api/issues)
+
 # ServiceNow REST API
 [![MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
@@ -45,6 +47,7 @@ Node.JS wrapper library for ServiceNow REST API.
     + [Request](#request-10)
     + [Response](#response-10)
 - [License](#license)
+- [Version](#version)
 
 
 ## Installing
@@ -550,3 +553,11 @@ ServiceNow.UpdateTask('incident','INC0010007',incidentData,res=>{
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
+
+## Version
+
+1.0.5
+___
+
+Updated dependencies
+

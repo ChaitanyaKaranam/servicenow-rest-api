@@ -1,4 +1,4 @@
-const axios= require('axios');
+let axios= require('axios');
 
 function ServiceNow(instance,userid,password){
     this.instance=instance;
@@ -25,6 +25,15 @@ ServiceNow.prototype.Authenticate=function(){
     },(rej)=>{
         console.log(rej);
     });
+}
+
+// Add custom network options
+ServiceNow.prototype.setNetworkOptions = function(options){
+    if(Object.keys(options).length > 0){
+        axios = axios.create(options);
+    }else{
+        console.log('Invalid Options')
+    }
 }
 
 

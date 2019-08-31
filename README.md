@@ -1,11 +1,18 @@
-Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaranam/servicenow-rest-api/issues)
-
 # ServiceNow REST API
 [![MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Node.JS wrapper library for ServiceNow REST API.
 
 [![NPM](https://nodei.co/npm/servicenow-rest-api.png)](https://npmjs.org/package/servicenow-rest-api)
+
+Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaranam/servicenow-rest-api/issues)
+
+## Updates
+
+# v1.1
+
+- Added support for attaching custom network options. Check this [guide](#4-set-custom-proxy)
+
 
 ## Table of Contents
 
@@ -36,6 +43,8 @@ Node.JS wrapper library for ServiceNow REST API.
   * [7. ServiceNow.DeleteTask](#7-servicenowdeletetask)
     + [Request](#request-7)
     + [Response](#response-7)
+  * [8. ServiceNow.setNetworkOptions](#8-servicenowsetnetworkoptions)
+    + [Request](#request-8)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
     + [Request](#request-8)
@@ -46,6 +55,8 @@ Node.JS wrapper library for ServiceNow REST API.
   * [3. Elevate priority of ticket](#3-elevate-priority-of-ticket)
     + [Request](#request-10)
     + [Response](#response-10)
+  * [4. Set Custom Proxy](#4-set-custom-proxy)
+    + [Request](#request-11)
 - [License](#license)
 - [Version](#version)
 
@@ -67,6 +78,30 @@ Run `npm install servicenow-rest-api` to install the package.
 const sn=require('servicenow-rest-api');
 
 const ServiceNow=new sn('_INSTANCE','_USERID','_PASSWORD');
+
+ServiceNow.Authenticate();
+
+ServiceNow.getSampleData('change_request',(res)=>{    // 
+    console.log(res);
+});
+```
+
+##### Proxy Settings
+
+```
+const sn=require('servicenow-rest-api');
+
+const ServiceNow=new sn('_INSTANCE','_USERID','_PASSWORD');
+
+const HttpsProxyAgent = require('https-proxy-agent');
+
+// Your Proxy details
+let agent = new HttpsProxyAgent({host: "123.252.137.238", port: "54107"});
+
+// Call this method before Authenticate
+ServiceNow.setNetworkOptions({
+    httpsAgent: agent
+})
 
 ServiceNow.Authenticate();
 
@@ -109,6 +144,8 @@ In this package, wrappers are available for below REST interfaces.
 ## Functions
 
 ### 1. ServiceNow.Authenticate
+
+If you need to set custom network options, call [this](#8-servicenowsetnetworkoptions) method before Authenticate.
 
 | Parameters                   |
 |------------------------------|
@@ -394,6 +431,29 @@ ServiceNow.DeleteTask('incident','INC0010006',res=>{
 204
 ```
 
+___
+
+### 8. ServiceNow.setNetworkOptions
+
+To set custom network options like proxy.
+
+Call this method before [ServiceNow.Authenticate](#1-servicenowauthenticate)
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| options           | network options                                            |
+
+#### Request
+
+```
+ServiceNow.setNetworkOptions({
+    httpsAgent: agent
+})
+```
+
+___
+
+
 ## Examples
 
 ### 1. Get critical incidents which are open for last 6 months.
@@ -549,6 +609,27 @@ ServiceNow.UpdateTask('incident','INC0010007',incidentData,res=>{
   short_description: 'Cannot connect to internet',
 ```
 
+___
+
+### 4. Set Custom Proxy
+
+#### Request
+
+```
+const sn = require('servicenow-rest-api');
+const ServiceNow = new sn('devserver','admin','password');
+const HttpsProxyAgent = require('https-proxy-agent');
+
+let agent = new HttpsProxyAgent({host: "123.252.137.238", port: "54107"});
+
+ServiceNow.setNetworkOptions({
+    httpsAgent: agent
+})
+
+ServiceNow.Authenticate();
+```
+
+___
 
 ## License
 
@@ -556,8 +637,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ## Version
 
-1.0.5
-___
-
-Updated dependencies
+1.1
 

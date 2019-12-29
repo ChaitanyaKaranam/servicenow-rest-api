@@ -6,10 +6,12 @@ function ServiceNow(instance,userid,password){
     this.password=password;
 }
 
+const getInstance = instance => instance.indexOf(".") >= 0 ? instance : `${instance}.service-now.com`;
+
 //Authenticate ServiceNow instances
 ServiceNow.prototype.Authenticate=function(){
     const options={
-        url:`https://${this.instance}.service-now.com/api/now/v2/table/sys_user?user_name=${this.userid}`,
+        url:`https://${getInstance(this.instance)}/api/now/v2/table/sys_user?user_name=${this.userid}`,
         method:'get',
         auth:{
             username:`${this.userid}`,
@@ -40,7 +42,7 @@ ServiceNow.prototype.setNetworkOptions = function(options){
 //GET - Sample data to check the fields and filters
 ServiceNow.prototype.getSampleData=function(type,callback){
     const options={
-        url:`https://${this.instance}.service-now.com/api/now/v2/table/${type}?sysparm_limit=1`,
+        url:`https://${getInstance(this.instance)}/api/now/v2/table/${type}?sysparm_limit=1`,
         method:'get',
         auth:{
             username:`${this.userid}`,
@@ -80,7 +82,7 @@ ServiceNow.prototype.getSampleData=function(type,callback){
 ServiceNow.prototype.getTableData=function(fields,filters,type,callback){
     let sysparm_fields='sysparm_fields=';
     let sysparm_query='sysparm_query=';
-    let url=`https://${this.instance}.service-now.com/api/now/v2/table/${type}?sysparm_display_value=true`;
+    let url=`https://${getInstance(this.instance)}/api/now/v2/table/${type}?sysparm_display_value=true`;
     if(fields.length>0){
         fields.forEach(field=>{
             sysparm_fields+=field+','
@@ -183,7 +185,7 @@ ServiceNow.prototype.getTableStats=function(type,callback){
 //POST- Create new record in ServiceNow Table
 ServiceNow.prototype.createNewTask=function(data,type,callback){
     const options={
-        url:`https://${this.instance}.service-now.com/api/now/table/${type}?sysparm_input_display_value=true&sysparm_display_value=true`,
+        url:`https://${getInstance(this.instance)}/api/now/table/${type}?sysparm_input_display_value=true&sysparm_display_value=true`,
         method:'post',
         headers:{
             'Accept':'application/json',
@@ -230,7 +232,7 @@ ServiceNow.prototype.createNewTask=function(data,type,callback){
 //GET- Sysid for table records for reference
 ServiceNow.prototype.getSysId=function(type,number,callback){
     const options={
-        url:`https://${this.instance}.service-now.com/api/now/v2/table/${type}?sysparm_query=number=${number}&sysparm_fields=sys_id`,
+        url:`https://${getInstance(this.instance)}/api/now/v2/table/${type}?sysparm_query=number=${number}&sysparm_fields=sys_id`,
         method:'get',
         auth:{
             username:`${this.userid}`,
@@ -270,7 +272,7 @@ ServiceNow.prototype.getSysId=function(type,number,callback){
 ServiceNow.prototype.UpdateTask =function(type,number,data,callback){
     this.getSysId(type,number,(sys_id)=>{
         const options={
-            url:`https://${this.instance}.service-now.com/api/now/table/${type}/${sys_id}?sysparm_input_display_value=true&sysparm_display_value=true`,
+            url:`https://${getInstance(this.instance)}/api/now/table/${type}/${sys_id}?sysparm_input_display_value=true&sysparm_display_value=true`,
             method:'put',
             headers:{
                 'Accept':'application/json',
@@ -316,7 +318,7 @@ ServiceNow.prototype.UpdateTask =function(type,number,data,callback){
 ServiceNow.prototype.DeleteTask = function(type,number,callback){
     this.getSysId(type,number,(sys_id)=>{
         const options={
-            url:`https://${this.instance}.service-now.com/api/now/table/${type}/${sys_id}`,
+            url:`https://${getInstance(this.instance)}/api/now/table/${type}/${sys_id}`,
             method:'delete',
             headers:{
                 'Accept':'application/json',

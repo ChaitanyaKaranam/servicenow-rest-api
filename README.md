@@ -45,6 +45,9 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
     + [Response](#response-7)
   * [8. ServiceNow.setNetworkOptions](#8-servicenowsetnetworkoptions)
     + [Request](#request-8)
+  * [9. ServiceNow.setNetworkOptions](#9-servicenowgettablestats)
+      + [Request](#request-12)
+      + [Response](#request-12)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
     + [Request](#request-8)
@@ -81,7 +84,7 @@ const ServiceNow=new sn('_INSTANCE','_USERID','_PASSWORD');
 
 ServiceNow.Authenticate();
 
-ServiceNow.getSampleData('change_request',(res)=>{    // 
+ServiceNow.getSampleData('change_request',(res)=>{    //
     console.log(res);
 });
 ```
@@ -105,7 +108,7 @@ ServiceNow.setNetworkOptions({
 
 ServiceNow.Authenticate();
 
-ServiceNow.getSampleData('change_request',(res)=>{    // 
+ServiceNow.getSampleData('change_request',(res)=>{    //
     console.log(res);
 });
 ```
@@ -401,7 +404,7 @@ ServiceNow.UpdateTask('incident','INC0010006',data,res=>{
    .
    .
    .
-   
+
 ```
 
 ___
@@ -449,6 +452,40 @@ Call this method before [ServiceNow.Authenticate](#1-servicenowauthenticate)
 ServiceNow.setNetworkOptions({
     httpsAgent: agent
 })
+```
+
+___
+
+
+### 9. ServiceNow.getTableStats
+
+Access ServiceNow table stats using this function.
+
+| Parameters        | Description                                                                                          |
+|-------------------|------------------------------------------------------------------------------------------------------|
+| type              | type of table - incident, change_request                                                             |
+| callback function | Response will be available as a parameter to this function                                           |                                           |
+
+#### Request
+
+```
+
+ServiceNow.getTableStats('incident',function(res){
+    console.log(res);
+});
+```
+
+#### Response
+
+```
+https://devserver.service-now.com/api/now/stats/incident?sysparm_count=true
+{
+    "result": {
+        "stats": {
+            "count": "18376"
+        }
+    }
+}
 ```
 
 ___
@@ -523,7 +560,7 @@ const changeData={
     'type':'Emergency',
     'assignment_group':'Hardware'
 };
-     
+
 
 ServiceNow.createNewTask(changeData,'change_request',res=>{
     console.log(res);
@@ -575,7 +612,7 @@ const incidentData={
     'urgency':'1',
     'impact':'1'
 };
-     
+
 ServiceNow.UpdateTask('incident','INC0010007',incidentData,res=>{
     console.log(res);
 });
@@ -638,4 +675,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 ## Version
 
 1.1
-

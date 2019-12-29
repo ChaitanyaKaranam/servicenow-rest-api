@@ -137,6 +137,51 @@ ServiceNow.prototype.getTableData=function(fields,filters,type,callback){
     });
 }
 
+
+//GET-Service now Table stats
+ServiceNow.prototype.getTableStats=function(type,callback){
+    let url=`https://${this.instance}.service-now.com/api/now/stats/${type}?sysparm_count=true`;
+
+
+    const options={
+        url:url,
+        method:'get',
+        auth:{
+            username:`${this.userid}`,
+            password:`${this.password}`
+        }
+    };
+    console.log(url);
+    axios(options).then((val)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getTableData(fields,filters,'incident',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }
+
+    }).catch((err)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getTableData(fields,filters,'incident',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...');
+            console.log(err);
+        }else{
+            callback(err);
+        }
+    });
+}
+
 //POST- Create new record in ServiceNow Table
 ServiceNow.prototype.createNewTask=function(data,type,callback){
     const options={

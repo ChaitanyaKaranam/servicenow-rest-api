@@ -9,9 +9,11 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
 
 ## Updates
 
-# v1.1
+# v1.2
 
-- Added support for attaching custom network options. Check this [guide](#4-set-custom-proxy)
+- Added integration with servicenow attachment api (only ``GET``). Check this [support](#supported-rest-api-calls)
+- Added support for downloading attachment. Check this [guide](#5-download-attachment)
+- Bumped axios version
 
 
 ## Table of Contents
@@ -45,18 +47,27 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
     + [Response](#response-7)
   * [8. ServiceNow.setNetworkOptions](#8-servicenowsetnetworkoptions)
     + [Request](#request-8)
+  * [9. ServiceNow.getAttachmentMetaData](#9-servicenowgetattachmentmetadata)
+    + [Request](#request-9)
+    + [Response](#response-8)
+  * [10. ServiceNow.getAttachment](#10-servicenowgetattachment)
+    + [Request](#request-10)
+    + [Response](#response-9)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
-    + [Request](#request-8)
-    + [Response](#response-8)
-  * [2. Create an Emergency change to reboot server](#2-create-an-emergency-change-to-reboot-server)
-    + [Request](#request-9)
-    + [Response](#response-9)
-  * [3. Elevate priority of ticket](#3-elevate-priority-of-ticket)
-    + [Request](#request-10)
-    + [Response](#response-10)
-  * [4. Set Custom Proxy](#4-set-custom-proxy)
     + [Request](#request-11)
+    + [Response](#response-10)
+  * [2. Create an Emergency change to reboot server](#2-create-an-emergency-change-to-reboot-server)
+    + [Request](#request-12)
+    + [Response](#response-11)
+  * [3. Elevate priority of ticket](#3-elevate-priority-of-ticket)
+    + [Request](#request-13)
+    + [Response](#response-12)
+  * [4. Set Custom Proxy](#4-set-custom-proxy)
+    + [Request](#request-14)
+  * [5. Downlaod Attachment](#5-download-attachment)
+    + [Request](#request-15)
+    + [Response](#response-13)
 - [License](#license)
 - [Version](#version)
 
@@ -136,10 +147,12 @@ ServiceNow.getSampleData('change_request',(res)=>{    //
 
 In this package, wrappers are available for below REST interfaces.
 
-| API       | GET                                | POST                     | PUT                               | DELETE                            |
-|-----------|------------------------------------|--------------------------|-----------------------------------|-----------------------------------|
-| Table API | /now/v2/table/{tableName}          | now/v2/table/{tableName} | now/v2/table/{tableName}/{sys_id} | now/v2/table/{tableName}/{sys_id} |
-|           | /now/v2/table/{tableName}/{sys_id} |                          |                                   |                                   |
+| API            | GET                                | POST                     | PUT                               | DELETE                            |
+|----------------|------------------------------------|--------------------------|-----------------------------------|-----------------------------------|
+| Table API      | /now/v2/table/{tableName}          | now/v2/table/{tableName} | now/v2/table/{tableName}/{sys_id} | now/v2/table/{tableName}/{sys_id} |
+|                | /now/v2/table/{tableName}/{sys_id} |                          |                                   |                                   |
+| Attachment API | /now/attachment/{sys_id}           |                          |                                   |                                   |
+|                | /now/attachment/{sys_id}/file      |                          |                                   |                                   |
 
 ## Functions
 
@@ -453,6 +466,104 @@ ServiceNow.setNetworkOptions({
 
 ___
 
+### 9. ServiceNow.getAttachmentMetaData
+
+This is used to get metadata of attachments
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| sys_id            | `sys_id` of file                                           |
+| callback function | Response will be available as a parameter to this function |
+
+#### Request
+
+```
+ServiceNow.getAttachmentMetaData('0254de0c4f889200086eeed18110c74c', (res => console.log(res)));
+```
+
+#### Response
+
+```
+{
+  size_bytes: '9753',
+  file_name: 'picture',
+  sys_mod_count: '1',
+  average_image_color: '',
+  image_width: '',
+  sys_updated_on: '2021-01-12 15:50:49',
+  sys_tags: '',
+  table_name: 'ZZ_YYpc_hardware_cat_item',
+  sys_id: '0254de0c4f889200086eeed18110c74c',
+  image_height: '',
+  sys_updated_by: 'admin',
+  download_link: 'https://dev99226.service-now.com/api/now/attachment/0254de0c4f889200086eeed18110c74c/file',
+  content_type: 'image/png',
+  sys_created_on: '2015-11-26 00:28:31',
+  size_compressed: '9369',
+  compressed: 'true',
+  state: 'available',
+  table_sys_id: 'ba5b8f9d182a1d001017ed13c02bcc29',
+  chunk_size_bytes: '',
+  hash: '',
+  sys_created_by: 'mnewton'
+}
+   
+```
+___
+
+### 10. ServiceNow.getAttachment
+
+This is used to download attachment. Response contains headers and binary data of attachment. Refer this [example](#5-download-attachment) on how to use these fields to download attachment.
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| sys_id            | `sys_id` of file                                           |
+| callback function | Response will be available as a parameter to this function |
+
+#### Request
+
+```
+ServiceNow.getAttachment('bae385672f6120102fefd5f62799b668', (result => {console.log(result)}))
+```
+
+#### Response
+
+```
+{
+  status: 200,
+  statusText: 'OK',
+  headers: {
+    'set-cookie': [
+      'JSESSIONID=5F1455AB65A01DF31C91E5DD6D26E71F; Path=/; HttpOnly;Secure',
+      'glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly;Secure',
+      'glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly;Secure',
+      'glide_user_route=glide.01101b80d2b7bd3808ce2bf759d058b7; Max-Age=2147483647; Expires=Sun, 30-Jan-2089 22:05:11 GMT; Path=/; HttpOnly;Secure',
+      'glide_session_store=401481E32F6120102FEFD5F62799B6F1; Max-Age=1800; Expires=Tue, 12-Jan-2021 19:21:04 GMT; Path=/; HttpOnly;Secure',
+      'BIGipServerpool_dev99226=2659473418.45632.0000; path=/; Httponly; Secure'
+    ],
+    'x-is-logged-in': 'true',
+    'x-transaction-id': '841481e32f61',
+    'content-disposition': 'attachment;filename=picture',
+    'x-attachment-metadata': '{  "size_bytes" : "9753",  "file_name" : "picture",  "sys_mod_count" : "1",  "average_image_color" : "",  "image_width" : "",  "sys_updated_on" : "2021-01-12 15:50:49",  "sys_tags" : "",  "table_name" : "ZZ_YYpc_hardware_cat_item",  "sys_id" : "0254de0c4f889200086eeed18110c74c",  "image_height" : 
+"",  "sys_updated_by" : "admin",  "content_type" : "image/png",  "sys_created_on" : "2015-11-26 00:28:31",  "size_compressed" : "9369",  "compressed" : "true",  "state" : "available",  "table_sys_id" : "ba5b8f9d182a1d001017ed13c02bcc29",  "chunk_size_bytes" : "",  "hash" : "",  "sys_created_by" : "mnewton"}',
+    'content-type': 'image/png;charset=UTF-8',
+    'transfer-encoding': 'chunked',
+    date: 'Tue, 12 Jan 2021 18:51:04 GMT',
+    server: 'ServiceNow',
+    connection: 'close',
+    'strict-transport-security': 'max-age=63072000; includeSubDomains'
+  },
+  .
+  .
+  .
+  data: '�PNG\r\n' +
+    '\u001a\n' +
+    '\u0000\u0000\u0000\rIHDR\u0000\u0000\u0001�\u0000\u0000\u0001,\b\u0003\u0000\u0000\u0000�i\u0015�\u0000\u0000\u0000\u0003sBIT\b\b\b��O�\u0000\u0000\u0001�PLTE���������������������������������Ľ������������������������������������}��������������w�����������w~⌂��~m�~e�z��
+   
+```
+
+___
+
 
 ## Examples
 
@@ -631,11 +742,51 @@ ServiceNow.Authenticate();
 
 ___
 
+### 5. Download Attachment
+
+#### Request
+
+> This example uses express server
+
+```
+const express = require('express');
+const app = express();
+const sn = require('servicenow-rest-api');
+const ServiceNow = new sn('devserver','admin','password');
+
+app.listen(3000);
+
+ServiceNow.Authenticate();
+
+app.get('/', (req, res) => {
+    ServiceNow.getAttachment('bae385672f6120102fefd5f62799b668', (result => {
+        if(result['headers']){
+            if(result['headers']['content-disposition']){
+                res.setHeader('content-disposition', result['headers']['content-disposition'])
+            }
+            if(result['headers']['content-type']){
+                res.setHeader('content-type', result['headers']['content-type'])
+            }
+            if(result['headers']['x-attachment-metadata']){
+                res.setHeader('x-attachment-metadata', result['headers']['x-attachment-metadata'])
+            }
+        }
+        res.send(result.data);
+    }));
+})
+
+```
+
+#### Response
+
+> File can be downloaded when you visit url, in this example, ``http://localhost:3000/``
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
 
 ## Version
 
-1.1
+1.2
 

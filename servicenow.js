@@ -318,4 +318,83 @@ ServiceNow.prototype.DeleteTask = function(type,number,callback){
     });
 }
 
+//GET - Get Attachment metadata
+ServiceNow.prototype.getAttachmentMetaData=function(sys_id,callback){
+    const options={
+        url:`https://${getInstance(this.instance)}/api/now/attachment/${sys_id}`,
+        method:'get',
+        auth:{
+            username:`${this.userid}`,
+            password:`${this.password}`
+        }
+    };
+    axios(options).then((val)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAttachmentMetaData('0254de0c4f889200086eeed18110c74c',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }
+    }).catch((err)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAttachmentMetaData('0254de0c4f889200086eeed18110c74c',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...');
+            console.log(err);
+        }else{
+            callback(err);
+        }
+    });
+}
+
+//GET - Get Attachment
+ServiceNow.prototype.getAttachment=function(sys_id,callback){
+    const options={
+        url:`https://${getInstance(this.instance)}/api/now/attachment/${sys_id}/file`,
+        method:'get',
+        auth:{
+            username:`${this.userid}`,
+            password:`${this.password}`
+        }
+    };
+    axios(options).then((val)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAttachmentMetaData('0254de0c4f889200086eeed18110c74c',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val);
+        }
+    }).catch((err)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAttachmentMetaData('0254de0c4f889200086eeed18110c74c',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...');
+            console.log(err);
+        }else{
+            callback(err);
+        }
+    });
+}
+
+
 module.exports=ServiceNow;

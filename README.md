@@ -9,7 +9,7 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
 
 ## Updates
 
-# v1.2
+# v1.2.1
 
 - Added integration with servicenow attachment api (only ``GET``). Check this [support](#supported-rest-api-calls)
 - Added support for downloading attachment. Check this [guide](#5-download-attachment)
@@ -53,6 +53,9 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [10. ServiceNow.getAttachment](#10-servicenowgetattachment)
     + [Request](#request-10)
     + [Response](#response-9)
+  * [11. ServiceNow.getAllAttachmentsMetaData](#11-servicenowgetallattachmentsmetadata)
+    + [Request](#request-11)
+    + [Response](#response-10)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
     + [Request](#request-11)
@@ -565,6 +568,65 @@ ServiceNow.getAttachment('bae385672f6120102fefd5f62799b668', (result => {console
 ___
 
 
+### 11. ServiceNow.getAllAttachmentsMetaData
+
+This is used to get metadata of all attachments of a specific  table
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| table_sys_id      | `table_sys_id` of table                                    |
+| callback function | Response will be available as a parameter to this function |
+
+#### Request
+
+```
+ServiceNow.getAllAttachmentsMetaData('a83820b58f723300e7e16c7827bdeed2', (res) => {
+    console.log(res);
+})
+```
+
+#### Response
+
+```
+[
+  {
+    size_bytes: '23',
+    file_name: 'test123.txt',
+    sys_mod_count: '1',
+    average_image_color: '',
+    image_width: '',
+    sys_updated_on: '2021-01-19 14:12:02',
+    sys_tags: '',
+    table_name: 'incident',
+    sys_id: '1857c8f12f3120102fefd5f62799b6cb',
+    image_height: '',
+    sys_updated_by: 'system',
+    download_link: 'https://dev99226.service-now.com/api/now/attachment/1857c8f12f3120102fefd5f62799b6cb/file',
+    ...
+  },
+  {
+    ...
+    table_name: 'incident',
+    sys_id: 'bae385672f6120102fefd5f62799b668',
+    image_height: '',
+    sys_updated_by: 'system',
+    download_link: 'https://dev99226.service-now.com/api/now/attachment/bae385672f6120102fefd5f62799b668/file',
+    content_type: 'text/plain',
+    sys_created_on: '2021-01-12 18:50:25',
+    size_compressed: '37',
+    compressed: 'true',
+    state: 'available',
+    table_sys_id: 'a83820b58f723300e7e16c7827bdeed2',
+    chunk_size_bytes: '700000',
+    hash: '5881707e54b0112f901bc83a1ffbacac8fab74ea46a6f706a3efc5f7d4c1c625',
+    sys_created_by: 'admin'
+  }
+]
+   
+```
+___
+
+
 ## Examples
 
 ### 1. Get critical incidents which are open for last 6 months.
@@ -788,5 +850,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ## Version
 
-1.2
+1.2.1
 

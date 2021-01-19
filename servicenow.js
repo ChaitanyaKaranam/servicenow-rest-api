@@ -357,6 +357,45 @@ ServiceNow.prototype.getAttachmentMetaData=function(sys_id,callback){
     });
 }
 
+//GET - Get All Attachments metadata from table_sys_id
+ServiceNow.prototype.getAllAttachmentsMetaData=function(table_sys_id,callback){
+    const options={
+        url:`https://${getInstance(this.instance)}/api/now/attachment?table_sys_id=${table_sys_id}`,
+        method:'get',
+        auth:{
+            username:`${this.userid}`,
+            password:`${this.password}`
+        }
+    };
+    axios(options).then((val)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAllAttachmentsMetaData('a83820b58f723300e7e16c7827bdeed2',(res)=>console.log(res))`);
+            console.log();
+        }else{
+            callback(val.data.result);
+        }
+    }).catch((err)=>{
+        if(callback == undefined){
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getAllAttachmentsMetaData('a83820b58f723300e7e16c7827bdeed2',(res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...');
+            console.log(err);
+        }else{
+            callback(err);
+        }
+    });
+}
+
 //GET - Get Attachment
 ServiceNow.prototype.getAttachment=function(sys_id,callback){
     const options={

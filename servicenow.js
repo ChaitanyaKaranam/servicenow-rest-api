@@ -435,5 +435,42 @@ ServiceNow.prototype.getAttachment=function(sys_id,callback){
     });
 }
 
+ServiceNow.prototype.getChangeTasks=function(type, changeNumber, callback){
+    const options={
+        url:`https://${getInstance(this.instance)}/api/now/table/${type}?change_request=${changeNumber}&sysparm_fields=number,sys_id`,
+        method:'get',
+        auth:{
+            username:`${this.userid}`,
+            password:`${this.password}`
+        }
+    };
+    axios(options).then((val)=>{
+        if (callback == undefined) {
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getChangeTasks('change_task', 'CHG0000016', (res)=>console.log(res))`);
+            console.log();
+        } else {
+            callback(val.data.result);
+        }
+    }).catch((err)=>{
+        if (callback == undefined) {
+            console.log();
+            console.log('Fix below errors');
+            console.log();
+            console.log('(1) ==> Cannot find Callback function...');
+            console.log('*********** Sample Request **********');
+            console.log(`ServiceNow.getChangeTasks('change_task', 'CHG0000016', (res)=>console.log(res))`);
+            console.log();
+            console.log('(2) ==> Bad Request...');
+            console.log(err);
+        } else {
+            callback(err);
+        }
+    });
+};
 
 module.exports=ServiceNow;

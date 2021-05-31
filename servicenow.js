@@ -435,9 +435,9 @@ ServiceNow.prototype.getAttachment=function(sys_id,callback){
     });
 }
 
-ServiceNow.prototype.getChangeTasks=function(type, changeNumber, callback){
+ServiceNow.prototype.getChangeTasks=function(type, number, callback){
     const options={
-        url:`https://${getInstance(this.instance)}/api/now/table/${type}?change_request=${changeNumber}&sysparm_fields=number,sys_id`,
+        url:`https://${getInstance(this.instance)}/api/now/table/${type}?change_request=${number}&sysparm_fields=number,sys_id`,
         method:'get',
         auth:{
             username:`${this.userid}`,

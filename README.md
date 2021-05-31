@@ -56,7 +56,7 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [11. ServiceNow.getAllAttachmentsMetaData](#11-servicenowgetallattachmentsmetadata)
     + [Request](#request-11)
     + [Response](#response-10)
-  * [12. ServiceNow.getChangeTasks](#5-download-attachment)
+  * [12. ServiceNow.getChangeTasks](#12-getchangetasks)
     + [Request](#request-16)
     + [Response](#response-17)
 - [Examples](#examples)
@@ -632,7 +632,7 @@ ___
 
 ### 12. ServiceNow.getChangeTasks
 
-This is used to get change tasks from a change request in ServiceNow.
+This is used to get change tasks from a change request in ServiceNow. (#12-getchangetasks)
 
 | Parameters        | Description                                                |
 |-------------------|------------------------------------------------------------|

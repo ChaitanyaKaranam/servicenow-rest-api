@@ -56,6 +56,9 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [11. ServiceNow.getAllAttachmentsMetaData](#11-servicenowgetallattachmentsmetadata)
     + [Request](#request-11)
     + [Response](#response-10)
+  * [12. ServiceNow.getChangeTasks](#5-download-attachment)
+    + [Request](#request-16)
+    + [Response](#response-17)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
     + [Request](#request-11)
@@ -71,9 +74,6 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [5. Downlaod Attachment](#5-download-attachment)
     + [Request](#request-15)
     + [Response](#response-13)
-  * [6. ServiceNow.getChangeTasks](#5-download-attachment)
-    + [Request](#request-16)
-    + [Response](#response-17)
 - [License](#license)
 - [Version](#version)
 
@@ -630,6 +630,37 @@ ServiceNow.getAllAttachmentsMetaData('a83820b58f723300e7e16c7827bdeed2', (res) =
 ___
 
 
+### 12. ServiceNow.getChangeTasks
+
+This is used to get change tasks from a change request in ServiceNow.
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| type              | type of table - change_request                             |
+| changeNumber      | Change request number                                      |
+| callback function | Response will be available as a parameter to this function |
+
+#### Request
+
+```
+ServiceNow.createNewTask('change_task', 'CHG0000016', res=>{
+    console.log(res);
+});
+```
+
+#### Response
+
+```
+{ number: 'CTASK0010006',
+  sys_id: '0254de0c4f889200086eeed18110c74c'
+  .
+  .
+```
+
+
+___
+
+
 ## Examples
 
 ### 1. Get critical incidents which are open for last 6 months.
@@ -845,37 +876,6 @@ app.get('/', (req, res) => {
 #### Response
 
 > File can be downloaded when you visit url, in this example, ``http://localhost:3000/``
-
-___
-
-
-### 5. ServiceNow.getChangeTasks
-
-This is used to get change tasks from a change request in ServiceNow.
-
-| Parameters        | Description                                                |
-|-------------------|------------------------------------------------------------|
-| type              | type of table - change_request                             |
-| changeNumber      | Change request number                                      |
-| callback function | Response will be available as a parameter to this function |
-
-#### Request
-
-```
-ServiceNow.createNewTask('change_task', 'CHG0000016', res=>{
-    console.log(res);
-});
-```
-
-#### Response
-
-```
-{ number: 'CTASK0010006',
-  sys_id: '0254de0c4f889200086eeed18110c74c'
-  .
-  .
-```
-
 
 ## License
 

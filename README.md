@@ -56,6 +56,9 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [11. ServiceNow.getAllAttachmentsMetaData](#11-servicenowgetallattachmentsmetadata)
     + [Request](#request-11)
     + [Response](#response-10)
+  * [12. ServiceNow.getChangeTasks](#12-servicenowgetchangetasks)
+    + [Request](#request-16)
+    + [Response](#response-17)
 - [Examples](#examples)
   * [1. Get critical incidents which are open for last 6 months.](#1-get-critical-incidents-which-are-open-for-last-6-months)
     + [Request](#request-11)
@@ -627,6 +630,37 @@ ServiceNow.getAllAttachmentsMetaData('a83820b58f723300e7e16c7827bdeed2', (res) =
 ___
 
 
+### 12. ServiceNow.getChangeTasks
+
+This is used to get change tasks from a change request in ServiceNow. (#12-getchangetasks)
+
+| Parameters        | Description                                                |
+|-------------------|------------------------------------------------------------|
+| type              | type of table - change_task                                |
+| changeNumber      | Change request number                                      |
+| callback function | Response will be available as a parameter to this function |
+
+#### Request
+
+```
+ServiceNow.getChangeTasks('change_task', 'CHG0000001', (res) =>
+    console.log(res)
+);
+```
+
+#### Response
+
+```
+{ number: 'CTASK0010006',
+  sys_id: '0254de0c4f889200086eeed18110c74c'
+  .
+  .
+```
+
+
+___
+
+
 ## Examples
 
 ### 1. Get critical incidents which are open for last 6 months.
@@ -842,7 +876,6 @@ app.get('/', (req, res) => {
 #### Response
 
 > File can be downloaded when you visit url, in this example, ``http://localhost:3000/``
-
 
 ## License
 

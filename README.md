@@ -56,7 +56,7 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
   * [11. ServiceNow.getAllAttachmentsMetaData](#11-servicenowgetallattachmentsmetadata)
     + [Request](#request-11)
     + [Response](#response-10)
-  * [12. ServiceNow.getChangeTasks](#12-getchangetasks)
+  * [12. ServiceNow.getChangeTasks](#12-servicenowgetchangetasks)
     + [Request](#request-16)
     + [Response](#response-17)
 - [Examples](#examples)
@@ -636,16 +636,16 @@ This is used to get change tasks from a change request in ServiceNow. (#12-getch
 
 | Parameters        | Description                                                |
 |-------------------|------------------------------------------------------------|
-| type              | type of table - change_request                             |
+| type              | type of table - change_task                                |
 | changeNumber      | Change request number                                      |
 | callback function | Response will be available as a parameter to this function |
 
 #### Request
 
 ```
-ServiceNow.createNewTask('change_task', 'CHG0000016', res=>{
-    console.log(res);
-});
+ServiceNow.getChangeTasks('change_task', 'CHG0000001', (res) =>
+    console.log(res)
+);
 ```
 
 #### Response

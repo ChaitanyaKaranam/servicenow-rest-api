@@ -9,10 +9,9 @@ Missing a feature? Raise a github issue [here](https://github.com/ChaitanyaKaran
 
 ## Updates
 
-# v1.2.1
+### v1.2.2
 
-- Added integration with servicenow attachment api (only ``GET``). Check this [support](#supported-rest-api-calls)
-- Added support for downloading attachment. Check this [guide](#5-download-attachment)
+- [New method](#12-servicenowgetchangetasks) to fetch change tasks
 - Bumped axios version
 
 

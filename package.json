@@ -1,22 +1,22 @@
 {
-  "name": "servicenow-rest-api",
-  "version": "1.2.2",
-  "description": "Wrapper library for ServiceNow REST API",
-  "main": "servicenow.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Chaitanya Karanam",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.21.1"
-  },
-  "keywords": [
-    "node",
-    "service-now"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ChaitanyaKaranam/servicenow-rest-api"
-  }
+    "name": "servicenow-rest-api",
+    "version": "1.2.2",
+    "description": "Wrapper library for ServiceNow REST API",
+    "main": "servicenow.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Chaitanya Karanam",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.21.2"
+    },
+    "keywords": [
+        "node",
+        "service-now"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ChaitanyaKaranam/servicenow-rest-api"
+    }
 }

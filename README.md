@@ -248,8 +248,9 @@ Access ServiceNow table data using this function.
 |-------------------|------------------------------------------------------------------------------------------------------|
 | fields            | Fields that you want from ServiceNow table. Pass an empty array if you want to get all the fields    |
 | filters           | Filters that has to be applied on ServiceNow table. Pass an empty array if filters are not required. |
+| advanced filters  | Use dot-walking to access attributes in 'reference' type of fields.                                                                                                                                                             |
 | type              | type of table - incident, change_request                                                             |
-| callback function | Response will be available as a parameter to this function                                           |                                           |
+| callback function | Response will be available as a parameter to this function                                           |
 
 #### Request
 
@@ -290,6 +291,36 @@ riority&sysparm_query=urgency=1
     .
 ```
 
+#### Request using dot-walking
+```
+const fields=[
+    'group.name',
+    'user.name'
+];
+
+const filters=[
+    'user.name=Beth Anglin'
+];
+
+ServiceNow.getTableData(fields,filters,'sys_user_grmember',function(res){
+    console.log(res);
+});
+```
+
+#### Response
+```
+[ {group.name: 'Network CAB Managers',
+    user.name: 'Beth Anglin'},
+  {group.name: 'Hardware,
+	user.name: 'Beth Anglin'},
+  {group.name: 'Database',
+	user.name: 'Beth Anglin'
+  }
+  .
+  .
+  .
+  ]
+```
 ___
 
 
